@@ -48,22 +48,22 @@ public class Right_Auto extends LinearOpMode {
                 .lineTo(new Vector2d(-56, -20))
                 .build();
         Trajectory thirdFor = drive.trajectoryBuilder(third.end())
-                .lineTo(new Vector2d(-47, -20))
+                .lineTo(new Vector2d(-48, -20))
                 .build();
         Trajectory thirdBack = drive.trajectoryBuilder(thirdFor.end())
-                .lineTo(new Vector2d(-55, -20))
+                .lineTo(new Vector2d(-56, -20))
                 .build();
         Trajectory fourth = drive.trajectoryBuilder((thirdBack.end()))
                 .lineToLinearHeading(new Pose2d(-56, 22.5, Math.toRadians(95))) //98
                 .build();
         Trajectory fifth = drive.trajectoryBuilder(fourth.end())
-                .lineToLinearHeading((new Pose2d(-48, -19, Math.toRadians(0))))
+                .lineToLinearHeading((new Pose2d(-48, -20, Math.toRadians(0))))
                 .build();
         Trajectory fifthFor = drive.trajectoryBuilder(fifth.end())
-                .lineTo(new Vector2d(-46, -19))
+                .lineTo(new Vector2d(-44, -20))
                 .build();
         Trajectory fifthBack = drive.trajectoryBuilder(fifthFor.end())
-                .lineTo(new Vector2d(-51, -19))
+                .lineTo(new Vector2d(-51, -20))
                 .build();
         //color sense drive code
         Trajectory red = drive.trajectoryBuilder(fifthBack.end())
