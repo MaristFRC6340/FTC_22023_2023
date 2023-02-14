@@ -105,7 +105,7 @@ public class ScrewAuto_Left extends LinearOpMode {
             telemetry.addData ("Average hue", hue);
             telemetry.update();
         }
-//0.5 open, 0.85 close
+//0.5 open, 0.85 close - New Auto
         drive.followTrajectory(third);
         setLeftArmPos(3000, 0.8);
         drive.followTrajectory(thirdFor);
