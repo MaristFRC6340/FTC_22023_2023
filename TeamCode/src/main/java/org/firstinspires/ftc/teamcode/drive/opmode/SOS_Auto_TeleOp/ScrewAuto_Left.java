@@ -25,7 +25,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous
 @Config
 
-public class Right_Auto extends LinearOpMode {
+public class ScrewAuto_Left extends LinearOpMode {
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
@@ -39,42 +39,48 @@ public class Right_Auto extends LinearOpMode {
 
         drive.setPoseEstimate(startPose);
         Trajectory first = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(0, -5))
+                .lineTo(new Vector2d(0, 5))
                 .build();
         Trajectory second = drive.trajectoryBuilder(first.end())
-                .lineTo(new Vector2d(-56, -5))
+                .lineTo(new Vector2d(-56, 5))
                 .build();
         Trajectory third = drive.trajectoryBuilder(second.end())
-                .lineTo(new Vector2d(-56, -20))
+                .lineTo(new Vector2d(-56, 21))
                 .build();
         Trajectory thirdFor = drive.trajectoryBuilder(third.end())
-                .lineTo(new Vector2d(-44, -20))
+                .lineTo(new Vector2d(-49, 21))
                 .build();
         Trajectory thirdBack = drive.trajectoryBuilder(thirdFor.end())
-                .lineTo(new Vector2d(-56, -20))
+                .lineTo(new Vector2d(-53, 21))
                 .build();
         Trajectory fourth = drive.trajectoryBuilder((thirdBack.end()))
-                .lineToLinearHeading(new Pose2d(-56, 22.5, Math.toRadians(95))) //98
+                .lineToLinearHeading(new Pose2d(-51, -21.85, Math.toRadians(-82))) //-80  //-56
                 .build();
         Trajectory fifth = drive.trajectoryBuilder(fourth.end())
-                .lineToLinearHeading((new Pose2d(-48, -20, Math.toRadians(0))))
+                .lineToLinearHeading((new Pose2d(-46, -4., Math.toRadians(0))))
                 .build();
-        Trajectory fifthFor = drive.trajectoryBuilder(fifth.end())
-                .lineTo(new Vector2d(-44, -20))
+        Trajectory sixth = drive.trajectoryBuilder(fifth.end())
+                .lineToLinearHeading(new Pose2d(-51, -21.85, Math.toRadians(-82)))//24
                 .build();
-        Trajectory fifthBack = drive.trajectoryBuilder(fifthFor.end())
-                .lineTo(new Vector2d(-51, -20))
+        Trajectory seventh = drive.trajectoryBuilder(sixth.end())
+                .lineToLinearHeading(new Pose2d(-46, -4.3, Math.toRadians(0)))
                 .build();
+        //I don't know if I did something wrong, but it was working for 3 cone but it then stopped.
         //color sense drive code
-        Trajectory red = drive.trajectoryBuilder(fifthBack.end())
-                .lineTo(new Vector2d(-51, -35))
+        /*
+        Trajectory red = drive.trajectoryBuilder(fifthBack.end())//fifthBack
+                .lineTo(new Vector2d(-51, 35))
                 .build();
-        Trajectory blue = drive.trajectoryBuilder(fifthBack.end())
-                .lineTo(new Vector2d(-51, -4))
+        Trajectory blue = drive.trajectoryBuilder(fifthBack.end())//fifthBack
+                .lineTo(new Vector2d(-51, 4))
                 .build();
-        Trajectory yellow = drive.trajectoryBuilder(fifthBack.end())
-                .lineTo(new Vector2d(-51, 21))
+        Trajectory yellow = drive.trajectoryBuilder(fifthBack.end())//fifthBack
+                .lineTo(new Vector2d(-51, -21))
                 .build();
+
+         */
+
+
 
         waitForStart();
 
@@ -85,7 +91,7 @@ public class Right_Auto extends LinearOpMode {
         //add color sense here during second
         // Run the Loop to read
         float hue = robot.getHue();
-        double waitTime = 3;
+        double waitTime = 1;
 
         double count = 1;
         double total = 0;
@@ -99,21 +105,27 @@ public class Right_Auto extends LinearOpMode {
             telemetry.addData ("Average hue", hue);
             telemetry.update();
         }
-
+//0.5 open, 0.85 close
         drive.followTrajectory(third);
         setLeftArmPos(3000, 0.8);
         drive.followTrajectory(thirdFor);
         robot.leftHand.setPosition(0.5);
+        sleep(300);
         drive.followTrajectory(thirdBack);
-        setLeftArmPos(-2200, 0.8); //750 pos
+        setLeftArmPos(-2250, 0.8); //800 pos
         drive.followTrajectory(fourth);
         robot.leftHand.setPosition(0.85);
         sleep(1000);
-        setLeftArmPos(2300, 0.8);
+        setLeftArmPos(1200, 0.8); //1600
         drive.followTrajectory(fifth);
-        drive.followTrajectory(fifthFor);
         robot.leftHand.setPosition(0.5);
-        drive.followTrajectory(fifthBack);
+        drive.followTrajectory(sixth);
+        setLeftArmPos(-1350, 0.8);
+        robot.leftHand.setPosition(0.85);
+        sleep(1000 );
+        setLeftArmPos(1500, 0.8);
+        drive.followTrajectory(seventh);
+        robot.leftHand.setPosition(0.5);
 
 
         //color sense stuffsssss
@@ -127,24 +139,24 @@ public class Right_Auto extends LinearOpMode {
             location = 1;
             telemetry.addData("Location", location);
             telemetry.update();
-            drive.followTrajectory(red);
+            //drive.followTrajectory(red);
         }
 
         else if (150 < finalAverage) { // Blue
             location = 2;
             telemetry.addData("Location", location);
             telemetry.update();
-            drive.followTrajectory(blue);
+            //drive.followTrajectory(blue);
         }
 
         else    { // Yellow
             location = 3;
             telemetry.addData("Location", location);
             telemetry.update();
-            drive.followTrajectory(yellow);
+            //drive.followTrajectory(yellow);
         }
 
-        setLeftArmPos(-3100, 0.8);
+        //setLeftArmPos(-3100, 0.8);
         // Display output
         telemetry.addData("Final Hue", finalAverage);
         telemetry.update();
@@ -153,7 +165,7 @@ public class Right_Auto extends LinearOpMode {
         telemetry.update();
     }
 
-//arm control
+    //arm control
     public void setLeftArmPos(int pos, double power) {
         DcMotor leftArm = hardwareMap.dcMotor.get("leftarm");
         leftArm.setDirection(DcMotor.Direction.FORWARD);
