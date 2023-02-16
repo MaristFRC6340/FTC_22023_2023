@@ -25,7 +25,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous
 @Config
 
-public class ScrewAuto_Left extends LinearOpMode {
+public class ThreeAuto_Left extends LinearOpMode {
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
@@ -44,38 +44,40 @@ public class ScrewAuto_Left extends LinearOpMode {
         Trajectory second = drive.trajectoryBuilder(first.end())
                 .lineTo(new Vector2d(-56, 5))
                 .build();
+        /*
         Trajectory third = drive.trajectoryBuilder(second.end())
                 .lineTo(new Vector2d(-56, 21))
                 .build();
-        Trajectory thirdFor = drive.trajectoryBuilder(third.end())
-                .lineTo(new Vector2d(-49, 21))
+
+         */
+        Trajectory thirdFor = drive.trajectoryBuilder(second.end())
+                .lineTo(new Vector2d(-48.5, 21.5))//x:49,y:20.5
                 .build();
         Trajectory thirdBack = drive.trajectoryBuilder(thirdFor.end())
-                .lineTo(new Vector2d(-53, 21))
+                .lineTo(new Vector2d(-53, 21))//x:-53,y:21
                 .build();
         Trajectory fourth = drive.trajectoryBuilder((thirdBack.end()))
-                .lineToLinearHeading(new Pose2d(-51, -20, Math.toRadians(-82))) //-80  //-56
+                .lineToLinearHeading(new Pose2d(-51, -22.9, Math.toRadians(-82))) //-80  //-56
                 .build();
-        Trajectory fifth = drive.trajectoryBuilder(fourth.end())
-                .lineToLinearHeading((new Pose2d(-46, -4.3, Math.toRadians(0))))
+        Trajectory fifth = drive.trajectoryBuilder(fourth.end())//low pole
+                .lineToLinearHeading((new Pose2d(-46, -5.5, Math.toRadians(0)))) //4.2
                 .build();
         Trajectory sixth = drive.trajectoryBuilder(fifth.end())
-                .lineToLinearHeading(new Pose2d(-51, -20, Math.toRadians(-82)))//24
+                .lineToLinearHeading(new Pose2d(-51, -22.9, Math.toRadians(-82)))//22.9
                 .build();
         Trajectory seventh = drive.trajectoryBuilder(sixth.end())
-                .lineToLinearHeading(new Pose2d(-46, -4.3, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-45, -5.5, Math.toRadians(0)))//low pole
                 .build();
         Trajectory sevBack = drive.trajectoryBuilder((seventh.end()))
-                .lineToLinearHeading(new Pose2d(-51, -4.3))
+                .lineToLinearHeading(new Pose2d(-51, -4.8))
                 .build();
-        //I don't know if I did something wrong, but it was working for 3 cone but it then stopped.
         //color sense drive code
 
         Trajectory red = drive.trajectoryBuilder(sevBack.end())//fifthBack
-                .lineTo(new Vector2d(-51, 35))
+                .lineTo(new Vector2d(-51, 36))
                 .build();
         Trajectory blue = drive.trajectoryBuilder(sevBack.end())//fifthBack
-                .lineTo(new Vector2d(-51, 4))
+                .lineTo(new Vector2d(-51, 2))
                 .build();
         Trajectory yellow = drive.trajectoryBuilder(sevBack.end())//fifthBack
                 .lineTo(new Vector2d(-51, -21))
@@ -107,7 +109,7 @@ public class ScrewAuto_Left extends LinearOpMode {
             telemetry.update();
         }
 //0.5 open, 0.85 close - New Auto
-        drive.followTrajectory(third);
+        //drive.followTrajectory(third);
         setLeftArmPos(3000, 0.8);
         drive.followTrajectory(thirdFor);
         robot.leftHand.setPosition(0.5);
@@ -120,9 +122,9 @@ public class ScrewAuto_Left extends LinearOpMode {
         setLeftArmPos(1200, 0.8); //1600
         drive.followTrajectory(fifth);
         robot.leftHand.setPosition(0.5);
+        sleep(500);
         drive.followTrajectory(sixth);
         setLeftArmPos(-1350, 0.8);
-        sleep(1000);
         robot.leftHand.setPosition(0.85);
         sleep(1000 );
         setLeftArmPos(1500, 0.8);

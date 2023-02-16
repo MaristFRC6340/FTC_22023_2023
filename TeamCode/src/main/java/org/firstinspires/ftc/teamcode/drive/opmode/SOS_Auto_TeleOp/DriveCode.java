@@ -151,13 +151,13 @@ public class DriveCode extends OpMode {
         // Control Arm with Right and Left Triggers
         double armMotorPower = gamepad1.right_trigger - gamepad1.left_trigger;
         // Limit Power to -0.4 to 0.4
-        if (armMotorPower > 0.4) {
-            armMotorPower = 0.4;
+        if (armMotorPower > 0.6) { //0.4
+            armMotorPower = 0.6;
             armPos += gamepad1.right_trigger * 8;
         }
 
-        if (armMotorPower < -0.4) {
-            armMotorPower = -0.4;
+        if (armMotorPower < -0.6) {
+            armMotorPower = -0.6;
             armPos -= gamepad1.left_trigger * 3;
         }
 
