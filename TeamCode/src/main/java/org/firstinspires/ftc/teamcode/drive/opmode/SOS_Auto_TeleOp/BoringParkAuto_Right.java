@@ -44,18 +44,15 @@ public class BoringParkAuto_Right extends LinearOpMode {
         Trajectory second = drive.trajectoryBuilder(first.end())
                 .lineTo(new Vector2d(-56, -5))
                 .build();
-        Trajectory third = drive.trajectoryBuilder(second.end())
-                .lineTo(new Vector2d(-56, -20))
-                .build();
 
         //color sense drive code
-        Trajectory red = drive.trajectoryBuilder(third.end())
+        Trajectory red = drive.trajectoryBuilder(second.end())
                 .lineTo(new Vector2d(-51, -35))
                 .build();
-        Trajectory blue = drive.trajectoryBuilder(third.end())
+        Trajectory blue = drive.trajectoryBuilder(second.end())
                 .lineTo(new Vector2d(-51, -4))
                 .build();
-        Trajectory yellow = drive.trajectoryBuilder(third.end())
+        Trajectory yellow = drive.trajectoryBuilder(second.end())
                 .lineTo(new Vector2d(-51, 21))
                 .build();
 
@@ -82,8 +79,6 @@ public class BoringParkAuto_Right extends LinearOpMode {
             telemetry.addData ("Average hue", hue);
             telemetry.update();
         }
-
-        drive.followTrajectory(third);
 
         //color sense stuffsssss
         double finalAverage = total / count;
@@ -113,7 +108,6 @@ public class BoringParkAuto_Right extends LinearOpMode {
             drive.followTrajectory(yellow);
         }
 
-        setLeftArmPos(-3100, 0.8);
         // Display output
         telemetry.addData("Final Hue", finalAverage);
         telemetry.update();

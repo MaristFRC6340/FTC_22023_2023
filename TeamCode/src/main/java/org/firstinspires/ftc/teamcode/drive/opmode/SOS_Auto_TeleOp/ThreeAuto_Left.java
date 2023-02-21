@@ -60,13 +60,13 @@ public class ThreeAuto_Left extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-51, -22.9, Math.toRadians(-82))) //-80  //-56
                 .build();
         Trajectory fifth = drive.trajectoryBuilder(fourth.end())//low pole
-                .lineToLinearHeading((new Pose2d(-46, -5.5, Math.toRadians(0)))) //4.2
+                .lineToLinearHeading((new Pose2d(-45, -7, Math.toRadians(0)))) //4.2
                 .build();
         Trajectory sixth = drive.trajectoryBuilder(fifth.end())
                 .lineToLinearHeading(new Pose2d(-51, -22.9, Math.toRadians(-82)))//22.9
                 .build();
         Trajectory seventh = drive.trajectoryBuilder(sixth.end())
-                .lineToLinearHeading(new Pose2d(-45, -5.5, Math.toRadians(0)))//low pole
+                .lineToLinearHeading(new Pose2d(-46, -7, Math.toRadians(0)))//low pole
                 .build();
         Trajectory sevBack = drive.trajectoryBuilder((seventh.end()))
                 .lineToLinearHeading(new Pose2d(-51, -4.8))
@@ -77,7 +77,7 @@ public class ThreeAuto_Left extends LinearOpMode {
                 .lineTo(new Vector2d(-51, 36))
                 .build();
         Trajectory blue = drive.trajectoryBuilder(sevBack.end())//fifthBack
-                .lineTo(new Vector2d(-51, 2))
+                .lineTo(new Vector2d(-51, 4))
                 .build();
         Trajectory yellow = drive.trajectoryBuilder(sevBack.end())//fifthBack
                 .lineTo(new Vector2d(-51, -21))
@@ -132,6 +132,8 @@ public class ThreeAuto_Left extends LinearOpMode {
         robot.leftHand.setPosition(0.5);
         sleep(1000);
         drive.followTrajectory(sevBack);
+        //2100 final pos
+        setLeftArmPos(-2100, 0.8);
 
 
         //color sense stuffsssss

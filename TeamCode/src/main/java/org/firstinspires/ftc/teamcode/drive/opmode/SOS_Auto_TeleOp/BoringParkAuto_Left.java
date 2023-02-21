@@ -44,19 +44,16 @@ public class BoringParkAuto_Left extends LinearOpMode {
         Trajectory second = drive.trajectoryBuilder(first.end())
                 .lineTo(new Vector2d(-56, 5))
                 .build();
-        Trajectory third = drive.trajectoryBuilder(second.end())
-                .lineTo(new Vector2d(-56, 21))
-                .build();
 
         //color sense drive code
-        Trajectory red = drive.trajectoryBuilder(third.end())
-                .lineTo(new Vector2d(-51, 35))
+        Trajectory red = drive.trajectoryBuilder(second.end())
+                .lineTo(new Vector2d(-52, 35))
                 .build();
-        Trajectory blue = drive.trajectoryBuilder(third.end())
-                .lineTo(new Vector2d(-51, 4))
+        Trajectory blue = drive.trajectoryBuilder(second.end())
+                .lineTo(new Vector2d(-52, 4))
                 .build();
-        Trajectory yellow = drive.trajectoryBuilder(third.end())
-                .lineTo(new Vector2d(-51, -21))
+        Trajectory yellow = drive.trajectoryBuilder(second.end())
+                .lineTo(new Vector2d(-52, -21))
                 .build();
 
         waitForStart();
@@ -82,8 +79,6 @@ public class BoringParkAuto_Left extends LinearOpMode {
             telemetry.addData ("Average hue", hue);
             telemetry.update();
         }
-
-        drive.followTrajectory(third);
 
 
         //color sense stuffsssss
