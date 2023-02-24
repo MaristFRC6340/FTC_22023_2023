@@ -57,10 +57,10 @@ public class Right_Auto extends LinearOpMode {
                 .lineTo(new Vector2d(-52, -20))
                 .build();
         Trajectory fourth = drive.trajectoryBuilder((thirdBack.end()))
-                .lineToLinearHeading(new Pose2d(-56, 22.5, Math.toRadians(90))) //95
+                .lineToSplineHeading(new Pose2d(-56, 22.5, Math.toRadians(90))) //95
                 .build();
         Trajectory fifth = drive.trajectoryBuilder(fourth.end())
-                .lineToLinearHeading((new Pose2d(-46, -20, Math.toRadians(0)))) //was 46, -17
+                .lineToSplineHeading((new Pose2d(-46, -20, Math.toRadians(0)))) //was 46, -17
                 .build();
         Trajectory fifthBack = drive.trajectoryBuilder(fifth.end())
                 .lineTo(new Vector2d(-51, -20))

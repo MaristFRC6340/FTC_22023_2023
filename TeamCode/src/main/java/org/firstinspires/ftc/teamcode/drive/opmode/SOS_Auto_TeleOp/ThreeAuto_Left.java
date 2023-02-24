@@ -57,19 +57,19 @@ public class ThreeAuto_Left extends LinearOpMode {
                 .lineTo(new Vector2d(-53, 21))//x:-53,y:21
                 .build();
         Trajectory fourth = drive.trajectoryBuilder((thirdBack.end()))
-                .lineToLinearHeading(new Pose2d(-51, -22.9, Math.toRadians(-82))) //-80  //-56
+                .lineToSplineHeading(new Pose2d(-51, -22.9, Math.toRadians(-82))) //-80  //-56
                 .build();
         Trajectory fifth = drive.trajectoryBuilder(fourth.end())//low pole
-                .lineToLinearHeading((new Pose2d(-45, -7, Math.toRadians(0)))) //4.2
+                .lineToSplineHeading((new Pose2d(-45, -6, Math.toRadians(0)))) //4.2
                 .build();
         Trajectory sixth = drive.trajectoryBuilder(fifth.end())
                 .lineToLinearHeading(new Pose2d(-51, -22.9, Math.toRadians(-82)))//22.9
                 .build();
         Trajectory seventh = drive.trajectoryBuilder(sixth.end())
-                .lineToLinearHeading(new Pose2d(-46, -7, Math.toRadians(0)))//low pole
+                .lineToSplineHeading(new Pose2d(-46, -6, Math.toRadians(0)))//low pole
                 .build();
         Trajectory sevBack = drive.trajectoryBuilder((seventh.end()))
-                .lineToLinearHeading(new Pose2d(-51, -4.8))
+                .lineToSplineHeading(new Pose2d(-51, -5))
                 .build();
         //color sense drive code
 
@@ -111,29 +111,29 @@ public class ThreeAuto_Left extends LinearOpMode {
 //0.5 open, 0.85 close - New Auto
         //drive.followTrajectory(third);
         setLeftArmPos(3000, 0.8);
-        drive.followTrajectory(thirdFor);
+        drive.followTrajectory(thirdFor); //med cone
         robot.leftHand.setPosition(0.5);
         sleep(300);
-        drive.followTrajectory(thirdBack);
+        drive.followTrajectory(thirdBack); //goes back from med cone
         setLeftArmPos(-2250, 0.8); //800 pos
-        drive.followTrajectory(fourth);
+        drive.followTrajectory(fourth); //grabs from stack
         robot.leftHand.setPosition(0.85);
         sleep(1000);
-        setLeftArmPos(1200, 0.8); //1600
-        drive.followTrajectory(fifth);
+        setLeftArmPos(1100, 0.8); //1600
+        drive.followTrajectory(fifth); //scores on low pole
         robot.leftHand.setPosition(0.5);
         sleep(500);
-        drive.followTrajectory(sixth);
+        drive.followTrajectory(sixth); //grabs from stack 2
         setLeftArmPos(-1350, 0.8);
         robot.leftHand.setPosition(0.85);
         sleep(1000 );
-        setLeftArmPos(1500, 0.8);
-        drive.followTrajectory(seventh);
+        setLeftArmPos(1400, 0.8);
+        drive.followTrajectory(seventh); //scores on low pole 2
         robot.leftHand.setPosition(0.5);
         sleep(1000);
-        drive.followTrajectory(sevBack);
-        //2100 final pos
-        setLeftArmPos(-2100, 0.8);
+        drive.followTrajectory(sevBack); //back from low pole
+        //1900 final pos
+        setLeftArmPos(-1900, 0.8);
 
 
         //color sense stuffsssss

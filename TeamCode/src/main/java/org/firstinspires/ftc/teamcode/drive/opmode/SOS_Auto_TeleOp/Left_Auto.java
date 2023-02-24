@@ -44,26 +44,32 @@ public class Left_Auto extends LinearOpMode {
         Trajectory second = drive.trajectoryBuilder(first.end())
                 .lineTo(new Vector2d(-56, 5))
                 .build();
+        /*
         Trajectory third = drive.trajectoryBuilder(second.end())
                 .lineTo(new Vector2d(-56, 21))
                 .build();
-        Trajectory thirdFor = drive.trajectoryBuilder(third.end())
+
+         */
+        Trajectory thirdFor = drive.trajectoryBuilder(second.end())
                 .lineTo(new Vector2d(-49, 21))
                 .build();
         Trajectory thirdBack = drive.trajectoryBuilder(thirdFor.end())
                 .lineTo(new Vector2d(-53, 21))
                 .build();
         Trajectory fourth = drive.trajectoryBuilder((thirdBack.end()))
-                .lineToLinearHeading(new Pose2d(-51, -24, Math.toRadians(-80))) //-80  //-56
+                .lineToSplineHeading(new Pose2d(-51, -24, Math.toRadians(-80))) //-80  //-56
                 .build();
         Trajectory fifth = drive.trajectoryBuilder(fourth.end())
-                .lineToLinearHeading((new Pose2d(-48, 21, Math.toRadians(0))))
+                .lineToSplineHeading((new Pose2d(-46.5, 21, Math.toRadians(0))))
                 .build();
+        /*
         Trajectory fifthFor = drive.trajectoryBuilder(fifth.end())
                 .lineTo(new Vector2d(-47, 21))
                 .build();
 
-        Trajectory fifthBack = drive.trajectoryBuilder(fifthFor.end())
+         */
+
+        Trajectory fifthBack = drive.trajectoryBuilder(fifth.end())
                 .lineTo(new Vector2d(-51, 21))
                 .build();
         //color sense drive code
@@ -86,7 +92,7 @@ public class Left_Auto extends LinearOpMode {
         //add color sense here during second
         // Run the Loop to read
         float hue = robot.getHue();
-        double waitTime = 3;
+        double waitTime = 1;
 
         double count = 1;
         double total = 0;
@@ -101,7 +107,7 @@ public class Left_Auto extends LinearOpMode {
             telemetry.update();
         }
 
-        drive.followTrajectory(third);
+        //drive.followTrajectory(third);
         setLeftArmPos(3000, 0.8);
         drive.followTrajectory(thirdFor);
         robot.leftHand.setPosition(0.5);
@@ -113,7 +119,7 @@ public class Left_Auto extends LinearOpMode {
         sleep(1000);
         setLeftArmPos(2300, 0.8);
         drive.followTrajectory(fifth);
-        drive.followTrajectory(fifthFor);
+        //drive.followTrajectory(fifthFor);
         robot.leftHand.setPosition(0.5);
         sleep(300);
         drive.followTrajectory(fifthBack);

@@ -122,7 +122,7 @@ public class DriveCode extends OpMode {
         // Use gamepad left & right Bumpers to open and close the claw
         if (gamepad1.right_bumper) {
             //clawOffset += CLAW_SPEED;
-            robot.leftHand.setPosition(0.85); //close
+            robot.leftHand.setPosition(0.78); //close
         }
         else if (gamepad1.left_bumper) {
             //clawOffset -= CLAW_SPEED;
